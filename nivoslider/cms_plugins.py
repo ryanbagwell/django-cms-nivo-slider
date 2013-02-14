@@ -6,7 +6,7 @@ from filer.models.imagemodels import Image as FilerImage
 from .models import *
 
 class SliderPlugin(CMSPluginBase):
-    name = "Sliding Images"
+    name = "Nivo Slider"
     render_template = "slider.html"
     change_form_template = "slider_change_form.html"
     model = SliderOptions
