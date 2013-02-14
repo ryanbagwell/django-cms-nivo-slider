@@ -3,108 +3,106 @@
 
 {% block extrahead %}
 	{{ block.super }}
-	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}slider/css/admin.slider.css" />
-	<script type="text/javascript" src="{{ STATIC_URL }}slider/js/jquery-ui-1.8.18.min.js"></script>
-	<script type="text/javascript" src="{{ STATIC_URL }}slider/js/jquery.carousel.min.js"></script>	
+	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}nivoslider/css/admin.slider.css" />
+	<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery-ui-1.8.18.min.js"></script>
+	<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery.carousel.min.js"></script>
 {% endblock %}
 
 
-	{% block form_top %}
-	
-		<div id="workspace">
+{% block form_top %}
 
-			<h3>Available Images</h3>
+	<div id="workspace">
 
-			<div id="slider-gallery">
-				<ul class="available-slider">
-					{% for t in available_images %}
-						<li style="width: 150px;" class="slider-wrapper" data-id="{{ t.id }}">
-							<h6>{{ t.title }}</h6>
-							<img title="{{ t.image.caption }}" alt="{{ t.image.alt }}" width="150" height="75" src="{% thumbnail t.image 150x75 crop upscale subject_location=t.image.img.subject_location %}" />
-							<span class="remove"></span>
-						</li>
-					{% endfor %}
-				</ul>
-			</div>
-	
-			<h3>Displayed Images</h3>
-	
-			<ul id="selected-slider">
-				{% for s in selected_images %}
-					<li style="width: 150px;" class="slider-wrapper" data-id="{{ s.id }}">
-						<h6>{{ s.title }}</h6>
-						<img title="{{ s.image.caption }}" alt="{{ t.image.alt }}" width="150" height="75" src="{% thumbnail s.image 150x75 crop upscale subject_location=t.image.img.subject_location %}" />
+		<h3>Available Images</h3>
+
+		<div id="slider-gallery">
+			<ul class="available-slider">
+				{% for t in available_images %}
+					<li style="width: 150px;" class="slider-wrapper" data-id="{{ t.id }}">
+						<h6>{{ t.title }}</h6>
+						<img title="{{ t.image.caption }}" alt="{{ t.image.alt }}" width="150" height="75" src="{% thumbnail t.image 150x75 crop %}" />
 						<span class="remove"></span>
-					</li>					
+					</li>
 				{% endfor %}
 			</ul>
-
 		</div>
 
-		<h3>Slider Options</h3>	
+		<h3>Displayed Images</h3>
 
-		<script type="text/javascript">
-			function Slider() {
-				this.sortable = $('#selected-slider');
-				var me = this;
-				
-				$('#slider-gallery').carousel({
-					nextBtn:"<span class='next'></span>",
-					prevBtn:"<span class='prev'></span>",
-					loop:true,
-				});
+		<ul id="selected-slider">
+			{% for s in selected_images %}
+				<li style="width: 150px;" class="slider-wrapper" data-id="{{ s.id }}">
+					<h6>{{ s.title }}</h6>
+					<img title="{{ s.image.caption }}" alt="{{ t.image.alt }}" width="150" height="75" src="{% thumbnail s.image 150x75 crop %}" />
+					<span class="remove"></span>
+				</li>					
+			{% endfor %}
+		</ul>
 
-				this.sortable.sortable({
-					receive:function(e,ui) {
-						me.update();
-					},
-					update:function() {
-						me.update();
-					},
-					create:function() {
-						me.update();
-					},					
-					placeholder:'slider-placeholder',
-					forcePlaceholderSize:true,
-					revert:50
-				});
+	</div>
+
+	<h3>Slider Options</h3>	
+
+	<script type="text/javascript">
+		function Slider() {
+			this.sortable = $('#selected-slider');
+			var me = this;
 			
-				$('.available-slider .slider-wrapper').draggable({
-					revert:'invalid',
-					appendTo:'#workspace',
-					revertDuration:100,
-					snap:true,
-					helper:'clone',
-					containment:'window',
-					iframeFix:true,
-					opacity:.5,
-					connectToSortable:this.sortable,
-				});
-				
-				$('.slider-wrapper .remove').live('click',function() {
-					me.remove.apply(this);
-					me.update();
-				});
-	
-			};
-			Slider.prototype.remove = function() {
-				$(this).parent().remove();
-			};
-			Slider.prototype.update = function() {
-				var ids = [];
-				var selected = $('#selected-slider li');
-				selected.each(function() {
-					ids.push($(this).attr('data-id'));
-				});
-			
-				$('input[name="images"]').val(ids.toString());
-		
-			};		
-			jQuery(document).ready(function($) {
-				var s = new Slider();
+			$('#slider-gallery').carousel({
+				nextBtn:"<span class='next'></span>",
+				prevBtn:"<span class='prev'></span>",
+				loop:true,
 			});
-		</script>
+
+			this.sortable.sortable({
+				receive:function(e,ui) {
+					me.update();
+				},
+				update:function() {
+					me.update();
+				},
+				create:function() {
+					me.update();
+				},					
+				placeholder:'slider-placeholder',
+				forcePlaceholderSize:true,
+				revert:50
+			});
+		
+			$('.available-slider .slider-wrapper').draggable({
+				revert:'invalid',
+				appendTo:'#workspace',
+				revertDuration:100,
+				snap:true,
+				helper:'clone',
+				containment:'window',
+				iframeFix:true,
+				opacity:.5,
+				connectToSortable:this.sortable,
+			});
+			
+			$('.slider-wrapper .remove').live('click',function() {
+				me.remove.apply(this);
+				me.update();
+			});
+
+		};
+		Slider.prototype.remove = function() {
+			$(this).parent().remove();
+		};
+		Slider.prototype.update = function() {
+			var ids = [];
+			var selected = $('#selected-slider li');
+			selected.each(function() {
+				ids.push($(this).attr('data-id'));
+			});
+		
+			$('input[name="images"]').val(ids.toString());
 	
-	{% endblock %}
+		};		
+		jQuery(document).ready(function($) {
+			var s = new Slider();
+		});
+	</script>
 
-
+{% endblock %}

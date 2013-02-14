@@ -1,6 +1,7 @@
 from django.db import models
 from filer.fields.image import FilerImageField
 from filer.fields.file import FilerFileField
+from filer.fields.folder import FilerFolderField
 from cms.models.pluginmodel import CMSPlugin
 
 class Slider(models.Model):
@@ -30,6 +31,8 @@ class SliderOptions(CMSPlugin):
         ('boxRainGrowReverse','boxRainGrowReverse'),
     )
 
+    base_folder = FilerFolderField(blank=True, null=True,
+        help_text="The folder that contains the available images")
     images = models.CharField(
         max_length=255, blank=True, null=True)
     effect = models.CharField(
