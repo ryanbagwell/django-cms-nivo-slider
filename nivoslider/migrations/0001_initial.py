@@ -1,39 +1,40 @@
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 import datetime
 from south.db import db
 from south.v2 import SchemaMigration
 from django.db import models
 
+
 class Migration(SchemaMigration):
 
     def forwards(self, orm):
-        
         # Adding model 'Slider'
-        db.create_table('slider_slider', (
+        db.create_table('nivoslider_slider', (
             ('id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('image', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['filer.Image'], null=True, blank=True)),
             ('url', self.gf('django.db.models.fields.URLField')(max_length=200, null=True, blank=True)),
         ))
-        db.send_create_signal('slider', ['Slider'])
+        db.send_create_signal('nivoslider', ['Slider'])
 
         # Adding model 'SliderOptions'
         db.create_table('cmsplugin_slideroptions', (
             ('cmsplugin_ptr', self.gf('django.db.models.fields.related.OneToOneField')(to=orm['cms.CMSPlugin'], unique=True, primary_key=True)),
             ('images', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
-            ('effect', self.gf('django.db.models.fields.CharField')(default='slideLeft', max_length=255, null=True, blank=True)),
+            ('effect', self.gf('django.db.models.fields.CharField')(default='random', max_length=255, null=True, blank=True)),
             ('animation_speed', self.gf('django.db.models.fields.CharField')(default='500', max_length=255, null=True, blank=True)),
             ('pause_time', self.gf('django.db.models.fields.CharField')(max_length=255, null=True, blank=True)),
             ('show_nav', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('use_nav_thumbs', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('random_start', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('pause_on_hover', self.gf('django.db.models.fields.BooleanField')(default=True)),
+            ('direction_nav', self.gf('django.db.models.fields.BooleanField')(default=True)),
         ))
-        db.send_create_signal('slider', ['SliderOptions'])
+        db.send_create_signal('nivoslider', ['SliderOptions'])
 
 
     def backwards(self, orm):
-        
         # Deleting model 'Slider'
-        db.delete_table('slider_slider')
+        db.delete_table('nivoslider_slider')
 
         # Deleting model 'SliderOptions'
         db.delete_table('cmsplugin_slideroptions')
@@ -71,7 +72,8 @@ class Migration(SchemaMigration):
         },
         'cms.cmsplugin': {
             'Meta': {'object_name': 'CMSPlugin'},
-            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'changed_date': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
+            'creation_date': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime(2013, 2, 14, 0, 0)'}),
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'language': ('django.db.models.fields.CharField', [], {'max_length': '15', 'db_index': 'True'}),
             'level': ('django.db.models.fields.PositiveIntegerField', [], {'db_index': 'True'}),
@@ -106,7 +108,7 @@ class Migration(SchemaMigration):
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_public': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'modified_at': ('django.db.models.fields.DateTimeField', [], {'auto_now': 'True', 'blank': 'True'}),
-            'name': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'name': ('django.db.models.fields.CharField', [], {'default': "''", 'max_length': '255', 'blank': 'True'}),
             'original_filename': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'owner': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'owned_files'", 'null': 'True', 'to': "orm['auth.User']"}),
             'polymorphic_ctype': ('django.db.models.fields.related.ForeignKey', [], {'related_name': "'polymorphic_filer.file_set'", 'null': 'True', 'to': "orm['contenttypes.ContentType']"}),
@@ -140,23 +142,25 @@ class Migration(SchemaMigration):
             'must_always_publish_copyright': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'subject_location': ('django.db.models.fields.CharField', [], {'default': 'None', 'max_length': '64', 'null': 'True', 'blank': 'True'})
         },
-        'slider.slider': {
+        'nivoslider.slider': {
             'Meta': {'object_name': 'Slider'},
             'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'image': ('django.db.models.fields.related.ForeignKey', [], {'to': "orm['filer.Image']", 'null': 'True', 'blank': 'True'}),
             'url': ('django.db.models.fields.URLField', [], {'max_length': '200', 'null': 'True', 'blank': 'True'})
         },
-        'slider.slideroptions': {
+        'nivoslider.slideroptions': {
             'Meta': {'object_name': 'SliderOptions', 'db_table': "'cmsplugin_slideroptions'", '_ormbases': ['cms.CMSPlugin']},
             'animation_speed': ('django.db.models.fields.CharField', [], {'default': "'500'", 'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
-            'effect': ('django.db.models.fields.CharField', [], {'default': "'slideLeft'", 'max_length': '255', 'null': 'True', 'blank': 'True'}),
+            'direction_nav': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'effect': ('django.db.models.fields.CharField', [], {'default': "'random'", 'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'images': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'pause_on_hover': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
             'pause_time': ('django.db.models.fields.CharField', [], {'max_length': '255', 'null': 'True', 'blank': 'True'}),
             'random_start': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
-            'show_nav': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
+            'show_nav': ('django.db.models.fields.BooleanField', [], {'default': 'True'}),
+            'use_nav_thumbs': ('django.db.models.fields.BooleanField', [], {'default': 'True'})
         }
     }
 
-    complete_apps = ['slider']
+    complete_apps = ['nivoslider']
