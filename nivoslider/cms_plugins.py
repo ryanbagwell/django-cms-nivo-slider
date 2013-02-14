@@ -10,6 +10,7 @@ class SliderPlugin(CMSPluginBase):
     render_template = "slider.html"
     change_form_template = "slider_change_form.html"
     model = SliderOptions
+    module = "Carousel"
     filer_folder_name = getattr(settings,'SLIDER_FOLDER_NAME','Home Page Images')
     admin_preview = False
     
