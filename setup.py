@@ -5,7 +5,7 @@ setup(
     version='0.1.0',
     author='Ryan Bagwell',
     author_email='ryan@ryanbagwell.com',
-    packages=['nivo_slider',],
+    packages=['nivoslider',],
     url='https://github.com/ryanbagwell/django-cms-nivo-slider',
     license='LICENSE.txt',
     description='A Django CMS carousel version of Nivo Slider',
