@@ -10,18 +10,24 @@
 </div>
 
 <script type="text/javascript">
-	jQuery(document).ready(function( $ ) {
-		$('#nivo-slider').nivoSlider({
-			effect:'{{ effect }}',
-			animSpeed:{{ animation_speed|default:"10000" }},
-			pauseTime:{{ pause_time|default:"15000" }},
-			directionNav: {{ show_direction_nav|default:"false"|lower }},
-			pauseOnHover: {{ pause_on_hover|default:"true"|lower }},
-			randomStart: {{ random_start|default:"false"|lower }},
-			controlNav: {{ show_nav|default:"false"|lower }},
-			controlNavThumbs: {{ use_nav_thumbs|default:"false"|lower }},
-			prevText: '{{ prev_text|default:"" }}',
-            nextText: '{{ prev_text|default:"" }}',
-	   });
-	});
+    var nivoOptions = {
+        effect:'{{ effect }}',
+        animSpeed:{{ animation_speed|default:"10000" }},
+        pauseTime:{{ pause_time|default:"15000" }},
+        directionNav: {{ show_direction_nav|default:"false"|lower }},
+        pauseOnHover: {{ pause_on_hover|default:"true"|lower }},
+        randomStart: {{ random_start|default:"false"|lower }},
+        controlNav: {{ show_nav|default:"false"|lower }},
+        controlNavThumbs: {{ use_nav_thumbs|default:"false"|lower }},
+        prevText: '{{ prev_text|default:"" }}',
+        nextText: '{{ prev_text|default:"" }}'
+    };
 </script>
+
+{% block nivo_slider_init_script %}
+<script>
+    jQuery(document).ready(function($) {
+        $('#nivo-slider').nivoSlider(nivoOptions);
+    });
+</script>
+{% endblock %}
