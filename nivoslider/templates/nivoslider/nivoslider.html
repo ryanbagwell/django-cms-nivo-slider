@@ -20,8 +20,8 @@
 			randomStart: {{ random_start|default:"false"|lower }},
 			controlNav: {{ show_nav|default:"false"|lower }},
 			controlNavThumbs: {{ use_nav_thumbs|default:"false"|lower }},
-			prevText: {{ prev_text|default:"Prev" }},
-            nextText: {{ prev_text|default:"Next" }},
+			prevText: '{{ prev_text|default:"" }}',
+            nextText: '{{ prev_text|default:"" }}',
 	   });
 	});
 </script>
