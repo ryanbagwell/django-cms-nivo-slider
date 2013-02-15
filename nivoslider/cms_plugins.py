@@ -14,11 +14,18 @@ class SliderPlugin(CMSPluginBase):
     admin_preview = True
     
     def render(self, context, instance, placeholder):
-
         context.update({
-            'options': SliderOptions.objects.all()[0],
             'images':  self.get_selected_images(instance),
-            })
+            'show_nav': instance.show_nav,
+            'pause_on_hover': instance.pause_on_hover,
+            'use_nav_thumbs': instance.use_nav_thumbs,
+            'animation_speed': instance.animation_speed,
+            'show_direction_nav': instance.direction_nav,
+            'random_start': instance.random_start,
+            'effect': instance.effect,
+            'pause_time': instance.pause_time,
+        })
+
         return context
 
     def render_change_form(self, request, context,

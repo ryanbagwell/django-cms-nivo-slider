@@ -53,3 +53,7 @@ class SliderOptions(CMSPlugin):
         default=True, help_text="Pause on Hover")
     direction_nav = models.BooleanField(
         default=True, help_text="Show the direction nav (next & prev)")
+    prev_text = models.CharField(max_length=255, blank=True, null=True,
+        help_text='The text to display for the "previous" link')
+    next_text = models.CharField(max_length=255, blank=True, null=True,
+        help_text='The text to display for the "next" link')

@@ -3,7 +3,7 @@
 {% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}nivoslider/css/nivo-slider.css" />{% endaddtoblock %}
 {% addtoblock "js" %}<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery.nivo.slider.pack.js"></script>{% endaddtoblock %}
 
-<div id="slider" class="nivoSlider">
+<div id="nivo-slider" class="nivoSlider">
 {% for i in images %}
     {% include "nivoslider.imagetag.html" %}
 {% endfor %}
@@ -11,22 +11,19 @@
 
 <script type="text/javascript">
 	jQuery(document).ready(function( $ ) {
-		$('#slider').nivoSlider({
-			effect:'{{ options.effect }}',
-			animSpeed:{{ options.animation_speed|default:"10000" }},
-			pauseTime:{{ options.pause_time|default:"15000" }},
-			directionNav: {{ options.show_direction_nav|default:"false"|lower }},
-			pauseOnHover: {{ options.pause_on_hover|default:"true"|lower }},
-			randomStart: {{ options.random_start|default:"false"|lower }},
-			controlNav: {{ options.show_nav|default:"false"|lower }},
-			controlNavThumbs: {{ options.use_nav_thumbs|default:"false"|lower }},
+		$('#nivo-slider').nivoSlider({
+			effect:'{{ effect }}',
+			animSpeed:{{ animation_speed|default:"10000" }},
+			pauseTime:{{ pause_time|default:"15000" }},
+			directionNav: {{ show_direction_nav|default:"false"|lower }},
+			pauseOnHover: {{ pause_on_hover|default:"true"|lower }},
+			randomStart: {{ random_start|default:"false"|lower }},
+			controlNav: {{ show_nav|default:"false"|lower }},
+			controlNavThumbs: {{ use_nav_thumbs|default:"false"|lower }},
+			prevText: {{ prev_text|default:"Prev" }},
+            nextText: {{ prev_text|default:"Next" }},
 	   });
-		$('a.nivo-control').text('');
-		$('#slider').css('visibility', 'visible');
+	    // $('a.nivo-control').text('');
+	   //  $('#slider').css('visibility', 'visible');
 	});
 </script>
-
-
-
-
-
