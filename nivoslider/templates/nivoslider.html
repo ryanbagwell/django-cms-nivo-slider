@@ -1,14 +1,12 @@
 {% load cms_tags sekizai_tags thumbnail %}
 
-{% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}slider/css/nivo-slider.css" />{% endaddtoblock %}
-{% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}slider/css/front.slider.css" />{% endaddtoblock %}
-{% addtoblock "js" %}<script type="text/javascript" src="{{ STATIC_URL }}slider/js/jquery.nivo.slider.pack.js"></script>{% endaddtoblock %}
+{% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}nivoslider/css/nivo-slider.css" />{% endaddtoblock %}
+{% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}nivoslider/css/front.slider.css" />{% endaddtoblock %}
+{% addtoblock "js" %}<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery.nivo.slider.pack.js"></script>{% endaddtoblock %}
 
 <div id="slider" class="nivoSlider">
 {% for i in images %}
-	{% if i.image.link %}<a href="{{ i.image.link }}">{% endif %}
-		<img title="#{{ i.image.name }}" alt="{{ i.image.name }}" width="{{ i.image.width }}" height="{{ i.image.height }}" src="{% thumbnail i.image 960x485 crop upscale subject_location=t.image.img.subject_location quality=100 %}" rel="" data-author="{{ i.image.author }}" />
-		{% if i.image.link %}</a>{% endif %}
+    {% include "nivoslider.imagetag.html" %}
 {% endfor %}
 </div>
 

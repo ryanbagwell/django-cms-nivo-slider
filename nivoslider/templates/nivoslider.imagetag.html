@@ -1,0 +1,5 @@
+{% if i.image.link %}<a href="{{ i.image.link }}">{% endif %}
+    {% block img_tag %}
+    <img {% block title_attr %}title="{{ i.image.name }}"{% endblock %} {% block alt_attr %}alt="{{ i.image.name }}"{% endblock %} width="{{ i.image.width }}" height="{{ i.image.height }}" {% block src_attr %}src="{{ i.image.url }}"{% endblock %} {% block rel_attr %}rel=""{% endblock %} />
+    {% endblock %}
+{% if i.image.link %}</a>{% endif %}
