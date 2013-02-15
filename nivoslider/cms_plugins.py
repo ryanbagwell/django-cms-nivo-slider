@@ -7,17 +7,17 @@ from .models import *
 
 class SliderPlugin(CMSPluginBase):
     name = "Nivo Slider"
-    render_template = "slider.html"
-    change_form_template = "slider_change_form.html"
+    render_template = "nivoslider/nivoslider.html"
+    change_form_template = "nivoslider/slider_change_form.html"
     model = SliderOptions
     module = "Carousel"
     admin_preview = True
     
     def render(self, context, instance, placeholder):
-        self.cms_plugin_instance = instance
+
         context.update({
             'options': SliderOptions.objects.all()[0],
-            'images':  self.get_selected_images(),
+            'images':  self.get_selected_images(instance),
             })
         return context
 
@@ -25,18 +25,13 @@ class SliderPlugin(CMSPluginBase):
         add=False, change=False, form_url='', obj=None):
         
         context.update({
-            'plugin': obj,
-            # 'preview': False,
-            #           'is_popup': False,
-            #'plugin': self.cms_plugin_instance,
-            #'CMS_MEDIA_URL': settings.CMS_MEDIA_URL,
+            #'plugin': obj,
             'available_images': self.get_available_images(obj),
             'selected_images': self.get_selected_images(obj),
         })
         
         return super(CMSPluginBase, self).render_change_form(request, context,
             add, change, form_url, obj)
-
         
     def get_selected_images(self, obj):
 
