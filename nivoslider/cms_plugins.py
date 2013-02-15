@@ -24,10 +24,8 @@ class SliderPlugin(CMSPluginBase):
     def render_change_form(self, request, context,
         add=False, change=False, form_url='', obj=None):
         
-        self
-        
-        
         context.update({
+            'plugin': obj,
             # 'preview': False,
             #           'is_popup': False,
             #'plugin': self.cms_plugin_instance,
@@ -37,28 +35,16 @@ class SliderPlugin(CMSPluginBase):
         })
         
         return super(CMSPluginBase, self).render_change_form(request, context,
-            add=False, change=False, form_url='', obj=None)
-    
-        # return super(CMSPluginBase, self).render_change_form(
-        #     request, context, add, change, form_url, obj)
+            add, change, form_url, obj)
+
         
     def get_selected_images(self, obj):
-        
-        selected_images = []
-        
-        #assert False, obj.__dict__
-        
-        
+
         try:
-            options =  obj.objects.filter(
-                cmsplugin_ptr=self.cms_plugin_instance.id)[0]
-            for id in options.images.split(','):
-                selected_images.append(
-                    FilerImage.objects.filter(id=id)[0])
+            return FilerImage.objects.filter(
+                id__in=obj.images.split(','))
         except:
-            selected_images = []
-    
-        return selected_images
+            return []
         
     def get_available_images(self, obj):
         
