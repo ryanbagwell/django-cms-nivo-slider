@@ -42,8 +42,9 @@ class SliderPlugin(CMSPluginBase):
     def get_selected_images(self, obj):
 
         try:
-            return FilerImage.objects.filter(
+            images = FilerImage.objects.filter(
                 id__in=obj.images.split(','))
+            return [images.get(pk=i) for i in obj.images.split(',')]
         except:
             return []
 
