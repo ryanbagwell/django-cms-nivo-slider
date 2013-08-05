@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name='Django CMS NivoSlider',
-    version='0.1.1',
+    version='0.1.2',
     author='Ryan Bagwell',
     author_email='ryan@ryanbagwell.com',
     packages=['nivoslider',],
