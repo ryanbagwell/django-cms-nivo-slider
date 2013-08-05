@@ -12,7 +12,7 @@ class SliderPlugin(CMSPluginBase):
     model = SliderOptions
     module = "Carousel"
     admin_preview = True
-    
+
     def render(self, context, instance, placeholder):
         context.update({
             'images':  self.get_selected_images(instance),
@@ -30,16 +30,15 @@ class SliderPlugin(CMSPluginBase):
 
     def render_change_form(self, request, context,
         add=False, change=False, form_url='', obj=None):
-        
+
         context.update({
-            #'plugin': obj,
             'available_images': self.get_available_images(obj),
             'selected_images': self.get_selected_images(obj),
         })
-        
-        return super(CMSPluginBase, self).render_change_form(request, context,
+
+        return super(SliderPlugin, self).render_change_form(request, context,
             add, change, form_url, obj)
-        
+
     def get_selected_images(self, obj):
 
         try:
@@ -47,12 +46,12 @@ class SliderPlugin(CMSPluginBase):
                 id__in=obj.images.split(','))
         except:
             return []
-        
+
     def get_available_images(self, obj):
-        
+
         try:
             return obj.base_folder.files
         except:
             return []
 
-plugin_pool.register_plugin(SliderPlugin)     
+plugin_pool.register_plugin(SliderPlugin)

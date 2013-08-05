@@ -4,6 +4,7 @@
 {% block extrahead %}
 	{{ block.super }}
 	<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}nivoslider/css/admin.slider.css" />
+	<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery.nivo.slider.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery-ui-1.8.18.min.js"></script>
 	<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/jquery.carousel.min.js"></script>
 {% endblock %}
@@ -35,7 +36,7 @@
 					<h6>{{ s.title }}</h6>
 					<img title="{{ s.image.caption }}" alt="{{ t.image.alt }}" width="150" height="75" src="{% thumbnail s.image 150x75 crop %}" />
 					<span class="remove"></span>
-				</li>					
+				</li>
 			{% endfor %}
 		</ul>
 
@@ -47,11 +48,11 @@
 	    jQuery(document).ready(function($) {
 	        $('iframe').height(500);
 	    });
-	
+
 		function Slider() {
 			this.sortable = $('#selected-slider');
 			var me = this;
-			
+
 			$('#slider-gallery').carousel({
 				nextBtn:"<span class='next'></span>",
 				prevBtn:"<span class='prev'></span>",
@@ -67,12 +68,12 @@
 				},
 				create:function() {
 					me.update();
-				},					
+				},
 				placeholder:'slider-placeholder',
 				forcePlaceholderSize:true,
 				revert:50
 			});
-		
+
 			$('.available-slider .slider-wrapper').draggable({
 				revert:'invalid',
 				appendTo:'#workspace',
@@ -84,7 +85,7 @@
 				opacity:.5,
 				connectToSortable:this.sortable,
 			});
-			
+
 			$('.slider-wrapper .remove').live('click',function() {
 				me.remove.apply(this);
 				me.update();
@@ -100,10 +101,10 @@
 			selected.each(function() {
 				ids.push($(this).attr('data-id'));
 			});
-		
+
 			$('input[name="images"]').val(ids.toString());
-	
-		};		
+
+		};
 		jQuery(document).ready(function($) {
 			var s = new Slider();
 		});
