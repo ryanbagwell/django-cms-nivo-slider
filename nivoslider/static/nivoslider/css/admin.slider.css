@@ -1,3 +1,25 @@
+.clearfix:after {
+    content: ".";
+    display: block;
+    clear: both;
+    visibility: hidden;
+    line-height: 0;
+    height: 0;
+}
+
+.clearfix {
+    display: inline-block;
+}
+
+html[xmlns] .clearfix {
+    display: block;
+}
+
+* html .clearfix {
+    height: 1%;
+}
+
+
 #workspace h3 {
     margin-bottom: 10px;
 }
@@ -36,7 +58,7 @@
     margin: 0;
 /*    width: auto;*/
     display: block;
-    
+
 }
 
 #slider-gallery .carousel-wrap {
@@ -54,10 +76,10 @@
         padding-right: 5px;
         display:inline-block;
      }
-     
+
      #slider-gallery .slider-wrapper {
          float: left;
-     }    
+     }
 
 
         .slider-wrapper .remove {
@@ -90,7 +112,7 @@
     .slider-wrapper img {
         /*display: block;*/
     }
-    
+
 #selected-slider {
     width: 950px;
     background-color: #EEEEEE;
@@ -104,18 +126,18 @@
         list-style-type: none;
         width: 150px;
     }
-            
+
         #selected-slider .slider-wrapper:hover .remove {
             display: block;
         }
 
-        
+
 .slider-placeholder {
     border: 1px dashed #AAA9A9;
     width: 150px;
     height: 75px;
     display: inline-block;
-}    
+}
 
 
 #header,
