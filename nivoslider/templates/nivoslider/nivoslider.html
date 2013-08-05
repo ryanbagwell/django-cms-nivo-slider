@@ -1,7 +1,7 @@
 {% load cms_tags sekizai_tags thumbnail %}
 
 {% addtoblock "css" %}<link type="text/css" rel="stylesheet" href="{{ STATIC_URL }}nivoslider/css/nivo-slider.css" />{% endaddtoblock %}
-{% addtoblock "js" %}<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/nivo-slider/jquery.nivo.slider.pack.js"></script>{% endaddtoblock %}
+{% addtoblock "js" %}<script type="text/javascript" src="{{ STATIC_URL }}nivoslider/js/nivo-slider/jquery.nivo.slider.js"></script>{% endaddtoblock %}
 
 <div id="nivo-slider" class="nivoSlider">
 {% for i in images %}
